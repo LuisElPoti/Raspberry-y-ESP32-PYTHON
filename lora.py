@@ -14,7 +14,7 @@ spi = busio.SPI(board.SCK, MOSI=board.MOSI, MISO=board.MISO)
 
 # Attempt to set up the RFM9x module
 try:
-    rfm9x = adafruit_rfm9x.RFM9x(spi, CS, RESET, 868.0)
+    rfm9x = adafruit_rfm9x.RFM9x(spi, CS, RESET, 868.2)
     print('RFM9x detected')
 except RuntimeError:
     print('RFM9x error')
