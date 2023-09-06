@@ -27,7 +27,7 @@ def connect():
 
 @sio.event
 def disconnect():
-    print('Desconectado del servidor WebSocket')
+    print('Desconectado del servidor WebSocket') 
 
 sio.connect('http://10.0.0.163:5000')  # Reemplaza 'tu_raspberry_pi_ip' con la dirección IP de tu Raspberry Pi
 
