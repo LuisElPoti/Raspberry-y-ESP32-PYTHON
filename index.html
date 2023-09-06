@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Temperatura y Humedad</title>
+</head>
+<body>
+    <h1>Temperatura y Humedad en Tiempo Real</h1>
+    <p id="temp">Temperatura: </p>
+    <p id="humd">Humedad: </p>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <script>
+        const socket = io.connect('http://' + document.domain + ':' + location.port);
+
+        socket.on('connect', () => {
+            console.log('Conectado al servidor WebSocket');
+        });
+
+        socket.on('update_data', (data) => {
+            document.getElementById('temp').textContent = 'Temperatura: ' + data.temp + '°C';
+            document.getElementById('humd').textContent = 'Humedad: ' + data.humd + '%';
+        });
+    </script>
+</body>
+</html>
