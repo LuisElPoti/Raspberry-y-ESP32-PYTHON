@@ -55,8 +55,5 @@ def obtain_and_emit_sensor_data():
         time.sleep(6)
 
 if __name__ == '__main__':
-    # Ejecutar la función obtain_and_emit_sensor_data en segundo plano
-    socketio.start_background_task(obtain_and_emit_sensor_data)
-    
-    # Ejecutar el servidor Flask en el hilo principal
     socketio.run(app, host='0.0.0.0', port=5000, debug=True)
+    obtain_and_emit_sensor_data()
