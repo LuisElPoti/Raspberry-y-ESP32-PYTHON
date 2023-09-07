@@ -44,7 +44,9 @@ def obtain_and_emit_sensor_data():
             humd = int.from_bytes(packet[4:6], byteorder='little') / 10.0
 
             print("Received temperature:", temp, "C")
+            sys.stdout.flush()  # Añadido para forzar la impresión inmediata
             print("Received humidity:", humd, "%")
+            sys.stdout.flush()  # Añadido para forzar la impresión inmediata
             
             socketio.emit('send_data', {'temp': temp, 'humd': humd})
             
