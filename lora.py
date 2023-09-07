@@ -39,6 +39,10 @@ while True:
         # Split packet y obtener datos (temp y humd)
         temp = int.from_bytes(packet[2:4], byteorder='little') / 10.0
         humd = int.from_bytes(packet[4:6], byteorder='little') / 10.0
+        
+        # Imprimir los valores recibidos en la consola
+        print("Received temperature:", temp, "C")
+        print("Received humidity:", humd, "%")
 
         # Enviar datos al servidor WebSocket
         sio.emit('send_data', {'temp': temp, 'humd': humd})
