@@ -36,12 +36,6 @@ def handle_connect():
 def handle_disconnect():
     print('Cliente desconectado') 
 
-@socketio.on('send_data')
-def handle_data(data):
-    print('Datos recibidos:', data)
-    emit('update_data', data, broadcast=True)
-
-# Función para obtener datos y emitirlos al servidor WebSocket en segundo plano
 def obtain_and_emit_sensor_data():
     while True:
         packet = rfm9x.receive()
@@ -57,5 +51,5 @@ def obtain_and_emit_sensor_data():
         time.sleep(6)
 
 if __name__ == '__main__':
-    socketio.start_background_task(obtain_and_emit_sensor_data)
     socketio.run(app, host='0.0.0.0', port=5000, debug=True)
+    obtain_and_emit_sensor_data()
