@@ -53,12 +53,12 @@ def obtain_and_emit_sensor_data():
 
 if __name__ == '__main__':
     
+    # Ejecutar el servidor Flask en el hilo principal
+    socketio.run(app, host='0.0.0.0', port=5000, debug=True)
     
     # Iniciar el hilo para recopilar y emitir datos
     data_thread = threading.Thread(target=obtain_and_emit_sensor_data)
     data_thread.daemon = True
     data_thread.start()
     
-    # Ejecutar el servidor Flask en el hilo principal
-    socketio.run(app, host='0.0.0.0', port=5000, debug=True)
     
