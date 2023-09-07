@@ -42,7 +42,7 @@ def handle_data(data):
 
 # Bucle para recibir datos LoRa y enviar al servidor WebSocket
 if __name__ == '__main__':
-    socketio.run(app, host='10.0.0.163', port=5000, debug=True)
+    socketio.run(app, host='0.0.0.0', port=5000, debug=True)
     while True:
         packet = rfm9x.receive()
         if packet:
