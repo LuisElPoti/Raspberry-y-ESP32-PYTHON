@@ -6,6 +6,7 @@ import adafruit_rfm9x
 import socketio
 from flask import Flask, render_template
 from flask_socketio import SocketIO, emit
+import sys
 
 app = Flask(__name__)
 socketio = SocketIO(app)
@@ -53,5 +54,6 @@ if __name__ == '__main__':
             print("Received humidity:", humd, "%")
             
             socketio.emit('send_data', {'temp': temp, 'humd': humd})
+            sys.stdout.flush()
             
         time.sleep(6)
