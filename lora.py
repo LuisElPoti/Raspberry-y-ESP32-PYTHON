@@ -30,7 +30,7 @@ def disconnect():
     print('Desconectado del servidor WebSocket') 
 
 sio.connect('http://10.0.0.163:5000')  # Reemplaza 'tu_raspberry_pi_ip' con la dirección IP de tu Raspberry Pi
-
+print("Hola mundo")
 # Bucle para recibir datos LoRa y enviar al servidor WebSocket
 while True:
     packet = None
