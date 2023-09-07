@@ -54,4 +54,4 @@ if __name__ == '__main__':
             
             socketio.emit('send_data', {'temp': temp, 'humd': humd})
             
-        time.sleep(1)
+        time.sleep(6)
