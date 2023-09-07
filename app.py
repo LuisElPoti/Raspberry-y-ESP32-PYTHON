@@ -5,7 +5,8 @@ import board
 import adafruit_rfm9x
 import socketio
 from flask import Flask, render_template
-from flask_socketio import SocketIO, emit
+from flask_socketio import SocketIO, emit 
+import threading
 
 app = Flask(__name__)
 socketio = SocketIO(app)
@@ -55,5 +56,10 @@ def obtain_and_emit_sensor_data():
         time.sleep(6)
 
 if __name__ == '__main__':
+    # Iniciar el hilo para recopilar y emitir datos
+    data_thread = threading.Thread(target=obtain_and_emit_sensor_data)
+    data_thread.daemon = True
+    data_thread.start()
+
+    # Ejecutar el servidor Flask en el hilo principal
     socketio.run(app, host='0.0.0.0', port=5000, debug=True)
-    obtain_and_emit_sensor_data()
