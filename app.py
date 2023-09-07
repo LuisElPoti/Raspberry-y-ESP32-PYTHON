@@ -7,6 +7,7 @@ import socketio
 from flask import Flask, render_template
 from flask_socketio import SocketIO, emit
 import sys
+import threading
 
 app = Flask(__name__)
 socketio = SocketIO(app)
@@ -44,14 +45,17 @@ def obtain_and_emit_sensor_data():
             humd = int.from_bytes(packet[4:6], byteorder='little') / 10.0
 
             print("Received temperature:", temp, "C")
-            sys.stdout.flush()  # Añadido para forzar la impresión inmediata
             print("Received humidity:", humd, "%")
-            sys.stdout.flush()  # Añadido para forzar la impresión inmediata
             
             socketio.emit('send_data', {'temp': temp, 'humd': humd})
             
         time.sleep(6)
 
 if __name__ == '__main__':
+    # Iniciar el hilo para recopilar y emitir datos
+    data_thread = threading.Thread(target=obtain_and_emit_sensor_data)
+    data_thread.daemon = True
+    data_thread.start()
+
+    # Ejecutar el servidor Flask en el hilo principal
     socketio.run(app, host='0.0.0.0', port=5000, debug=True)
-    obtain_and_emit_sensor_data()
