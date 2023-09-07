@@ -36,10 +36,10 @@ def handle_connect():
 def handle_disconnect():
     print('Cliente desconectado') 
 
-@socketio.on('send_data')
-def handle_data(data):
-    print('Datos recibidos:', data)
-    emit('update_data', data, broadcast=True)
+# @socketio.on('send_data')
+# def handle_data(data):
+#     print('Datos recibidos:', data)
+#     emit('update_data', data, broadcast=True)
 
 # Bucle para recibir datos LoRa y enviar al servidor WebSocket
 if __name__ == '__main__':
