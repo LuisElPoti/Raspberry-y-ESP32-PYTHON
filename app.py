@@ -17,7 +17,7 @@ RESET = DigitalInOut(board.D25)
 spi = busio.SPI(board.SCK, MOSI=board.MOSI, MISO=board.MISO)
 
 try:
-    rfm9x = adafruit_rfm9x.RFM9x(spi, CS, RESET, 868.2)
+    rfm9x = adafruit_rfm9x.RFM9x(spi, CS, RESET, 868)
     print('RFM9x detected')
 except RuntimeError:
     print('RFM9x error')
