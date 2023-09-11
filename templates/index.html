@@ -16,9 +16,9 @@
             console.log('Conectado al servidor WebSocket');
         });
 
-        socket.on('update_data', (data) => {
-            document.getElementById('temp').textContent = 'Temperatura: ' + data.temp + '°C';
-            document.getElementById('humd').textContent = 'Humedad: ' + data.humd + '%';
+        socket.on('send_data', (data) => {  // Cambia 'update_data' a 'send_data'
+        document.getElementById('temp').textContent = 'Temperatura: ' + data.temp + '°C';
+        document.getElementById('humd').textContent = 'Humedad: ' + data.humd + '%';
         });
     </script>
 </body>
