@@ -51,7 +51,9 @@ def obtain_and_emit_sensor_data():
             print("Received temperature:", temp, "C")
             print("Received humidity:", humd, "%")
             
-            socketio.emit('send_data', {'temp': temp, 'humd': humd})
+            #socketio.emit('send_data', {'temp': temp, 'humd': humd})
+            socketio.emit('temperature', temp)
+            socketio.emit('humidity', humd)
             
         time.sleep(6)
 
