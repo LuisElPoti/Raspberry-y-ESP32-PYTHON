@@ -36,10 +36,6 @@ def handle_connect():
 def handle_disconnect():
     print('Cliente desconectado') 
 
-@socketio.on('send_data')
-def handle_data(data):
-    print('Datos recibidos:', data)
-    emit('update_data', data, broadcast=True)
 
 def obtain_and_emit_sensor_data():
     while True:
