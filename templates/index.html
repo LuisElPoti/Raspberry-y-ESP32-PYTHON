@@ -4,9 +4,7 @@
     <title>Temperatura y Humedad</title>
 </head>
 <body>
-    <h1>Temperatura y Humedad en Tiempo Real</h1>
-    <p id="temperatura">Temperatura: </p>
-    <p id="humedad">Humedad: </p>
+    
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
     <script>
@@ -18,13 +16,18 @@
 
         socket.on('temp', (temp) => {
             const temperaturaElement = document.querySelector('#temperatura');
-            temperaturaElement.textContent = `${temp} °C`;
+            temperaturaElement.textContent = `Temperatura: ${temp} °C`;
         });
 
         socket.on('humd', (humd) => {
             const humedadElement = document.querySelector('#humedad');
-            humedadElement.textContent = `${humd} %`;
+            humedadElement.textContent = `Humedad: ${humd} %`;
         });
+        
     </script>
+
+    <h1>Temperatura y Humedad en Tiempo Real</h1>
+    <p id="temperatura"></p>
+    <p id="humedad"></p>
 </body>
 </html>
