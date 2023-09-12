@@ -17,8 +17,8 @@
         });
 
         socket.on('send_data', (data) => {  // Cambia 'update_data' a 'send_data'
-        document.getElementById('temp').textContent = 'Temperatura: ' + data.temp + '°C';
-        document.getElementById('humd').textContent = 'Humedad: ' + data.humd + '%';
+        document.querySelector('temp').textContent = 'Temperatura: ' + data.temp + '°C';
+        document.querySelector('humd').textContent = 'Humedad: ${data.humd} %';
         });
     </script>
 </body>
