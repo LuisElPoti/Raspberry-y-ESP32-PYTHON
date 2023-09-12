@@ -25,7 +25,7 @@ except RuntimeError:
 # Rutas para la página web
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('/templates/index.html')
 
 # Eventos de Socket.IO
 @socketio.on('connect')
