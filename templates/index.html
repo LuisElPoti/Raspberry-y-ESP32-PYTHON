@@ -16,14 +16,14 @@
             console.log('Conectado al servidor WebSocket');
         });
 
-        socket.on('temperature', (temperature) => {
+        socket.on('temp', (temp) => {
             const temperaturaElement = document.querySelector('#temperatura');
-            temperaturaElement.textContent = `${temperature} °C`;
+            temperaturaElement.textContent = `${temp} °C`;
         });
 
-        socket.on('humidity', (humidity) => {
+        socket.on('humd', (humd) => {
             const humedadElement = document.querySelector('#humedad');
-            humedadElement.textContent = `${humidity} %`;
+            humedadElement.textContent = `${humd} %`;
         });
     </script>
 </body>
