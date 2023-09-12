@@ -60,4 +60,4 @@ if __name__ == '__main__':
     data_thread.start()
 
     # Ejecutar el servidor Flask en el hilo principal
-    socketio.run(app, host='localhost', port=3000, debug=True)
+    socketio.run(app, host='0.0.0.0', port=3000, debug=True)
