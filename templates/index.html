@@ -8,7 +8,7 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
     <script>
-        const socket = io('http://10.0.0.163:3000')
+        const socket = io.comnect('http://' + document.domain + ':' + location.port);
 
         socket.on('connect', () => {
             console.log('Conectado al servidor WebSocket');
