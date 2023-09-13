@@ -54,7 +54,7 @@ def receive_data():
 
 if __name__ == '__main__':
     # Iniciar el hilo para recopilar y emitir datos
-    data_thread = threading.Thread(target=obtain_and_emit_sensor_data)
+    data_thread = threading.Thread(target=receive_data)
     data_thread.daemon = True
     data_thread.start()
 
