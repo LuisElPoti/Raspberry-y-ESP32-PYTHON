@@ -47,8 +47,8 @@ def receive_data():
             print("Received humidity:", humd, "%")
             
             #socketio.emit('send_data', {'temp': temp, 'humd': humd})
-            socketio.emit('temp', temp)
-            socketio.emit('humd', humd)
+            socketio.emit('temp', temp.toFixed(2))  
+            socketio.emit('humd', humd.toFixed(2))
             
         time.sleep(6)
 
