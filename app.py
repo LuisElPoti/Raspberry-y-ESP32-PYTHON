@@ -37,17 +37,18 @@ def handle_disconnect():
     print('Cliente desconectado') 
 
 def receive_data():
-    packet = rfm9x.receive()
-    if packet:
-        temp = int.from_bytes(packet[2:4], byteorder='little') / 10.0
-        humd = int.from_bytes(packet[4:6], byteorder='little') / 10.0
+    while True:
+        packet = rfm9x.receive()
+        if packet:
+            temp = int.from_bytes(packet[2:4], byteorder='little') / 10.0
+            humd = int.from_bytes(packet[4:6], byteorder='little') / 10.0
 
-        print("Received temperature:", temp, "C")
-        print("Received humidity:", humd, "%")
-
-        # Emitir eventos Socket.IO desde aquí
-        socketio.emit('temp', temp)
-        socketio.emit('humd', humd)
+            print("Received temperature:", temp, "C")
+            print("Received humidity:", humd, "%")
+            
+            #socketio.emit('send_data', {'temp': temp, 'humd': humd})
+            socketio.emit('temp', temp)
+            socketio.emit('humd', humd)
             
         time.sleep(6)
 
