@@ -16,13 +16,16 @@
 
         socket.on('temp', (temp) => {
             const temperaturaElement = document.querySelector('#temperatura');
-            temperaturaElement.textContent = `Temperatura: ${temp} °C`;
+            const tempFormatted = temp.toFixed(2);  // Redondear a 2 decimales
+            temperaturaElement.textContent = `Temperatura: ${tempFormatted} °C`;
         });
 
         socket.on('humd', (humd) => {
             const humedadElement = document.querySelector('#humedad');
-            humedadElement.textContent = `Humedad: ${humd} %`;
+            const humdFormatted = humd.toFixed(2);  // Redondear a 2 decimales
+            humedadElement.textContent = `Humedad: ${humdFormatted} %`;
         });
+
         
     </script>
 
