@@ -11,24 +11,23 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
     <script>
-        const socket = io.connect('http://10.0.0.163:3000');
+        document.addEventListener('DOMContentLoaded', () => {
+            const socket = io.connect('http://10.0.0.163:3000');
 
-        socket.on('connect', () => {
-            console.log('Conectado al servidor WebSocket');
-        });
+            socket.on('connect', () => {
+                console.log('Conectado al servidor WebSocket');
+            });
 
-        socket.on('temp', (temp) => {
-            const temperaturaElement = document.querySelector('#temperatura');
-            temperaturaElement.textContent = `Temperatura: ${temp} °C`;
-        });
+            socket.on('temp', (temp) => {
+                const temperaturaElement = document.querySelector('#temperatura');
+                temperaturaElement.textContent = `Temperatura: ${temp} °C`;
+            });
 
-        socket.on('humd', (humd) => {
-            const humedadElement = document.querySelector('#humedad');
-            humedadElement.textContent = `Humedad: ${humd} %`;
+            socket.on('humd', (humd) => {
+                const humedadElement = document.querySelector('#humedad');
+                humedadElement.textContent = `Humedad: ${humd} %`;
+            });
         });
-        
     </script>
-
-    
 </body>
 </html>
