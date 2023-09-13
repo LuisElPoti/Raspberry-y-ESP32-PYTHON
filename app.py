@@ -36,7 +36,6 @@ def handle_connect():
 def handle_disconnect():
     print('Cliente desconectado') 
 
-@app.route('/receive-data')
 def receive_data():
     packet = rfm9x.receive()
     if packet:
