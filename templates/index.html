@@ -1,39 +1,55 @@
 <!DOCTYPE html>
-<html>
+<html lang='en'>
+
 <head>
-    <title>Temperatura y Humedad</title>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Sensor de temperatura</title>
+    <link rel='stylesheet' href='https://unpkg.com/bulma@0.9.1/css/bulma.min.css'>
+    <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'>
 </head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.1.2/socket.io.js"></script>
+<script>
+  const socket = io.connect('http://10.0.0.163:3000');
+
+  socket.on('connect', () => {
+    console.log('Connected to server');
+  });
+
+  socket.on('temp', (temp) => {
+    const temperaturaElement = document.querySelector('#temperatura');
+    temperaturaElement.textContent = `${temp} °C`;
+  });
+
+  socket.on('humd', (humd) => {
+    const humedadElement = document.querySelector('#humedad');
+    humedadElement.textContent = `${humd} %`;
+  });
+</script>
 <body>
-    
-    <h1>Temperatura y Humedad en Tiempo Real</h1>
-    <h4 id="temperatura"> </h4>
-    <h4 id="humedad"> </h4>
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
-    <script>
-        
-        const socket = io.connect('http://10.0.0.163:3000');
-
-        socket.on('connect', () => {
-            console.log('Conectado al servidor WebSocket');
-        });
-
-        socket.on('temp', (temp) => {
-            const temperaturaElement = document.getElementById('temperatura');
-            temperaturaElement.textContent = `Temperatura: ${temp} °C`;
-            
-        });
-
-        socket.on('humd', (humd) => {
-            const humedadElement = document.getElementById('humedad');
-            humedadElement.textContent = `Humedad: ${humd} %`;
-            
-        });
-        
-
-    
-    </script>
-    
-
+    <section id='app' class='hero is-link is-fullheight'>
+        <div class='hero-body'>
+            <div class='container'>
+                <div class='columns has-text-centered'>
+                    <div class='column'>
+                        <h1 style='font-size: 2.5rem'>Termómetro</h1>
+                        <i class='fa fa-thermometer-half' style='font-size: 4rem;'></i>
+                    </div>
+                </div>
+                <div class='columns'>
+                    <div class='column has-text-centered'>
+                        <h2 class='is-size-4 has-text-warning'>Temperatura</h2>
+                        <h2 class='is-size-1' id='temperatura'></h2>
+                    </div>
+                    <div class='column has-text-centered'>
+                        <h2 class='is-size-4 has-text-warning'>Humedad</h2>
+                        <h2 class='is-size-1' id='humedad'></h2>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </section>
 </body>
+
 </html>
