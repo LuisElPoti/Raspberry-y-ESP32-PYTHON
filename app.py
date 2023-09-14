@@ -31,6 +31,7 @@ def index():
 @socketio.on('connect')
 def handle_connect():
     print('Cliente conectado')
+    receive_data()
 
 @socketio.on('disconnect')
 def handle_disconnect():
@@ -50,13 +51,13 @@ def receive_data():
             socketio.emit('temp', temp)  
             socketio.emit('humd', humd)
             
-        time.sleep(6)
+        time.sleep(5)
 
 if __name__ == '__main__':
     # Iniciar el hilo para recopilar y emitir datos
-    data_thread = threading.Thread(target=receive_data)
-    data_thread.daemon = True
-    data_thread.start()
+    #data_thread = threading.Thread(target=receive_data)
+    #data_thread.daemon = True
+   # data_thread.start()
 
     # Ejecutar el servidor Flask en el hilo principal
     socketio.run(app, host='0.0.0.0', port=3000, debug=False)
