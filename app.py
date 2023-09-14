@@ -44,6 +44,9 @@ def receive_data():
             temp = int.from_bytes(packet[2:4], byteorder='little') / 10.0
             humd = int.from_bytes(packet[4:6], byteorder='little') / 10.0
 
+            socketio.emit('temp', temp)  
+            socketio.emit('humd', humd)
+            
             print("Received temperature:", temp, "C")
             print("Received humidity:", humd, "%")
             

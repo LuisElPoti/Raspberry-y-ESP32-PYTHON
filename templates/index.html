@@ -19,17 +19,16 @@
         });
 
         socket.on('temp', (temp) => {
-            const temperaturaElement = document.querySelector('#temperatura');
+            const temperaturaElement = document.getElementById('temperatura');
             temperaturaElement.textContent = `Temperatura: ${temp} °C`;
             
         });
 
         socket.on('humd', (humd) => {
-            const humedadElement = document.querySelector('#humedad');
+            const humedadElement = document.getElementById('humedad');
             humedadElement.textContent = `Humedad: ${humd} %`;
             
         });
-
         
 
     
