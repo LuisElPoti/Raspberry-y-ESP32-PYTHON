@@ -11,6 +11,7 @@ import threading
 app = Flask(__name__)
 socketio = SocketIO(app)
 
+
 # Configurar RFM9x LoRa Radio
 CS = DigitalInOut(board.CE1)
 RESET = DigitalInOut(board.D25)
@@ -46,11 +47,11 @@ def receive_data():
 
             socketio.emit('temp', temp)  
             socketio.emit('humd', humd)
+            socketio.sleep(5)
             
             print("Received temperature:", temp, "C")
             print("Received humidity:", humd, "%")
             
-            time.sleep(5)
            
             
        
