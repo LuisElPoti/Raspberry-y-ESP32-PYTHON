@@ -47,11 +47,12 @@ def receive_data():
 
             socketio.emit('temp', temp)  
             socketio.emit('humd', humd)
-            socketio.sleep(5)
+            
             
             print("Received temperature:", temp, "C")
             print("Received humidity:", humd, "%")
             
+            time.sleep(5)
            
             
        
