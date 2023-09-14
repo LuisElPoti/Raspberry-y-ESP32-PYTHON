@@ -49,9 +49,11 @@ def receive_data():
             
             print("Received temperature:", temp, "C")
             print("Received humidity:", humd, "%")
+            
+            time.sleep(5)
            
             
-        time.sleep(5)
+       
 
 if __name__ == '__main__':
     # Iniciar el hilo para recopilar y emitir datos
