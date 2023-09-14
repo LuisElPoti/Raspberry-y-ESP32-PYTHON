@@ -24,15 +24,16 @@
         socket.on('temp', (temp) => {
             const temperaturaElement = document.querySelector('#temperatura');
             temperaturaElement.textContent = `Temperatura: ${temp} °C`;
+            console.log(`Temperatura: ${temp} °C`)
         });
 
         socket.on('humd', (humd) => {
             const humedadElement = document.querySelector('#humedad');
             humedadElement.textContent = `Humedad: ${humd} %`;
+            console.log(`Humedad: ${humd} %`)
         });
 
-        console.log(`Humedad: ${humd} %`)
-        console.log(`Temperatura: ${temp} °C`)
+        
 
     
     </script>
