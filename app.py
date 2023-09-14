@@ -50,7 +50,7 @@ def receive_data():
             socketio.emit('temp', temp)  
             socketio.emit('humd', humd)
             
-        time.sleep(6)
+        time.sleep(4)
 
 if __name__ == '__main__':
     # Iniciar el hilo para recopilar y emitir datos
