@@ -9,7 +9,8 @@ from flask_socketio import SocketIO, emit
 import threading
 
 app = Flask(__name__)
-socketio = SocketIO(app)
+socketio = SocketIO(app, cors_allowed_origins='*')
+
 
 
 # Configurar RFM9x LoRa Radio
