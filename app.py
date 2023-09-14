@@ -50,7 +50,7 @@ def receive_data():
             socketio.emit('temp', temp)  
             socketio.emit('humd', humd)
             
-        time.sleep(4)
+        time.sleep(6)
 
 if __name__ == '__main__':
     # Iniciar el hilo para recopilar y emitir datos
@@ -59,4 +59,4 @@ if __name__ == '__main__':
     data_thread.start()
 
     # Ejecutar el servidor Flask en el hilo principal
-    socketio.run(app, host='0.0.0.0', port=3000, debug=True)
+    socketio.run(app, host='0.0.0.0', port=3000, debug=False)
