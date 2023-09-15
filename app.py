@@ -53,16 +53,12 @@ def receive_data():
             print("Received temperature:", temp, "C")
             print("Received humidity:", humd, "%")
             
-        time.sleep(5)
+            time.sleep(5)
            
             
        
 
 if __name__ == '__main__':
-    # Iniciar el hilo para recopilar y emitir datos
-    # data_thread = threading.Thread(target=receive_data)
-    # data_thread.daemon = True
-    # data_thread.start()
     
     socketio.start_background_task(receive_data)
     # Ejecutar el servidor Flask en el hilo principal
