@@ -17,8 +17,8 @@ firebase_admin.initialize_app(cred, {
     'databaseURL': 'https://sensores-apolo-default-rtdb.firebaseio.com/'
 })
 
-app = Flask(__name__)
-socketio = SocketIO(app)
+#app = Flask(__name__)
+#socketio = SocketIO(app)
 
 
 
@@ -34,19 +34,19 @@ except RuntimeError:
     print('RFM9x error')
 
 # Rutas para la página web
-@app.route('/')
-def index():
-    return render_template('index.html')
+# @app.route('/')
+# def index():
+#     return render_template('index.html')
 
-# Eventos de Socket.IO
-@socketio.on('connect')
-def handle_connect():
-    print('Cliente conectado')
+# # Eventos de Socket.IO
+# @socketio.on('connect')
+# def handle_connect():
+#     print('Cliente conectado')
     
 
-@socketio.on('disconnect')
-def handle_disconnect():
-    print('Cliente desconectado') 
+# @socketio.on('disconnect')
+# def handle_disconnect():
+#     print('Cliente desconectado') 
 
 def receive_data():
     while True:
@@ -67,8 +67,8 @@ def receive_data():
                 }
                 ref.push(new_data)
         
-            socketio.emit('temp', temp)  
-            socketio.emit('humd', humd)
+            # socketio.emit('temp', temp)  
+            # socketio.emit('humd', humd)
            
             print("Received temperature:", temp, "C")
             print("Received humidity:", humd, "%")
@@ -84,4 +84,4 @@ if __name__ == '__main__':
     data_thread.daemon = True
     data_thread.start()
     # Ejecutar el servidor Flask en el hilo principal
-    socketio.run(app, host='0.0.0.0', port=3000, debug=True)
+    #socketio.run(app, host='0.0.0.0', port=3000, debug=True)
