@@ -7,8 +7,8 @@ import socketio
 from flask import Flask, render_template
 from flask_socketio import SocketIO, emit 
 import threading
-import firebase_admin
-from firebase_admin import credentials, db
+# import firebase_admin
+# from firebase_admin import credentials, db
 
 
 # Inicializar Firebase Admin SDK
