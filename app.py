@@ -52,7 +52,7 @@ def receive_data():
             print("Received temperature:", temp, "C")
             print("Received humidity:", humd, "%")
             
-            time.sleep(5)
+        time.sleep(5)
            
             
        
@@ -60,7 +60,7 @@ def receive_data():
 if __name__ == '__main__':
     
     data_thread = threading.Thread(target=receive_data)
-   
+    data_thread.daemon = True
     data_thread.start()
     # Ejecutar el servidor Flask en el hilo principal
     socketio.run(app, host='0.0.0.0', port=3000, debug=True)
