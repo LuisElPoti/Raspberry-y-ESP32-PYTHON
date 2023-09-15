@@ -60,8 +60,10 @@ def receive_data():
 
 if __name__ == '__main__':
     # Iniciar el hilo para recopilar y emitir datos
-    data_thread = threading.Thread(target=receive_data)
-    data_thread.daemon = True
-    data_thread.start()
+    # data_thread = threading.Thread(target=receive_data)
+    # data_thread.daemon = True
+    # data_thread.start()
+    
+    socketio.start_background_task(receive_data)
     # Ejecutar el servidor Flask en el hilo principal
     socketio.run(app, host='0.0.0.0', port=3000, debug=False)
