@@ -12,10 +12,10 @@ from firebase_admin import credentials, db
 
 
 # Inicializar Firebase Admin SDK
-cred = credentials.Certificate("credentials.json")  # Reemplaza con la ubicación de tu archivo JSON
-firebase_admin.initialize_app(cred, {
-    'databaseURL': 'https://sensores-apolo-default-rtdb.firebaseio.com/'
-})
+# cred = credentials.Certificate("credentials.json")  # Reemplaza con la ubicación de tu archivo JSON
+# firebase_admin.initialize_app(cred, {
+#     'databaseURL': 'https://sensores-apolo-default-rtdb.firebaseio.com/'
+# })
 
 app = Flask(__name__)
 socketio = SocketIO(app)
@@ -55,17 +55,17 @@ def receive_data():
             temp = int.from_bytes(packet[2:4], byteorder='little') / 10.0
             humd = int.from_bytes(packet[4:6], byteorder='little') / 10.0
             
-            if((temp < 0 or temp > 50)  and (humd < 0 or humd > 100)):
+            # if((temp < 0 or temp > 50)  and (humd < 0 or humd > 100)):
                 
-                # Crear una referencia a la base de datos de Firebase
-                ref = db.reference('/temperatura-humedad')
+            #     # Crear una referencia a la base de datos de Firebase
+            #     ref = db.reference('/temperatura-humedad')
 
-                # Crear un nuevo registro en la base de datos con la temperatura y humedad
-                new_data = {
-                    'temperatura': temp,
-                    'humedad': humd
-                }
-                ref.push(new_data)
+            #     # Crear un nuevo registro en la base de datos con la temperatura y humedad
+            #     new_data = {
+            #         'temperatura': temp,
+            #         'humedad': humd
+            #     }
+            #     ref.push(new_data)
         
             socketio.emit('temp', temp)  
             socketio.emit('humd', humd)
