@@ -52,8 +52,8 @@ def receive_data():
     while True:
         packet = rfm9x.receive()
         if packet:
-            temp = int.from_bytes(packet[2:4], byteorder='little') / 10.00
-            humd = int.from_bytes(packet[4:6], byteorder='little') / 10.00
+            temp = int.from_bytes(packet[2:4], byteorder='little') / 100.00
+            humd = int.from_bytes(packet[4:6], byteorder='little') / 100.00
             
             # if((temp > 0 or temp < 50)  and (humd > 0 or humd < 100)):
                 
