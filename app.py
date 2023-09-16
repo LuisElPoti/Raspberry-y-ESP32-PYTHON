@@ -52,10 +52,10 @@ def receive_data():
     while True:
         packet = rfm9x.receive()
         if packet:
-            temp = int.from_bytes(packet[2:4], byteorder='little') / 10.0
-            humd = int.from_bytes(packet[4:6], byteorder='little') / 10.0
+            temp = int.from_bytes(packet[2:4], byteorder='little') / 100.0
+            humd = int.from_bytes(packet[4:6], byteorder='little') / 100.0
             
-            # if((temp < 0 or temp > 50)  and (humd < 0 or humd > 100)):
+            # if((temp > 0 or temp < 50)  and (humd > 0 or humd < 100)):
                 
             #     # Crear una referencia a la base de datos de Firebase
             #     ref = db.reference('/temperatura-humedad')
