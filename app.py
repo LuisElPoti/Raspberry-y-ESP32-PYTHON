@@ -52,25 +52,19 @@ def receive_data():
     while True:
         packet = rfm9x.receive()
         if packet:
-            temp = int.from_bytes(packet[2:4], byteorder='little') / 10.00
-            humd = int.from_bytes(packet[4:6], byteorder='little') / 10.00
-            
-            # if((temp > 0 or temp < 50)  and (humd > 0 or humd < 100)):
-                
-            #     # Crear una referencia a la base de datos de Firebase
-            #     ref = db.reference('/temperatura-humedad')
+            temp_celsius = int.from_bytes(packet[2:4], byteorder='little') / 10.00
+            temp_fahrenheit = int.from_bytes(packet[4:6], byteorder='little') / 10.00
+            temp_kelvin = int.from_bytes(packet[6:8], byteorder='little') / 10.00
+            humd = int.from_bytes(packet[8:10], byteorder='little') / 10.00
 
-            #     # Crear un nuevo registro en la base de datos con la temperatura y humedad
-            #     new_data = {
-            #         'temperatura': temp,
-            #         'humedad': humd
-            #     }
-            #     ref.push(new_data)
-        
-            socketio.emit('temp', temp)  
+            socketio.emit('temp_celsius', temp_celsius)
+            socketio.emit('temp_fahrenheit', temp_fahrenheit)
+            socketio.emit('temp_kelvin', temp_kelvin)
             socketio.emit('humd', humd)
-           
-            print("Received temperature:", temp, "C")
+
+            print("Received temperature (Celsius):", temp_celsius, "C")
+            print("Received temperature (Fahrenheit):", temp_fahrenheit, "F")
+            print("Received temperature (Kelvin):", temp_kelvin, "K")
             print("Received humidity:", humd, "%")
             
         time.sleep(5)
