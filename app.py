@@ -66,6 +66,7 @@ def receive_data():
             print("Received temperature (Fahrenheit):", temp_fahrenheit, "F")
             print("Received temperature (Kelvin):", temp_kelvin, "K")
             print("Received humidity:", humd, "%")
+            print("")
             
         time.sleep(5)
            
