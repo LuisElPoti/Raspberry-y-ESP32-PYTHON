@@ -63,8 +63,8 @@ def receive_data():
             socketio.emit('humd', humd)
 
             print("Received temperature (Celsius):", temp_celsius, "C")
-            print("Received temperature (Fahrenheit):", temp_fahrenheit, "F")
             print("Received temperature (Kelvin):", temp_kelvin, "K")
+            print("Received temperature (Fahrenheit):", temp_fahrenheit, "F")
             print("Received humidity:", humd, "%")
             
         time.sleep(5)
