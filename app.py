@@ -49,13 +49,11 @@ def handle_disconnect():
     print('Cliente desconectado')
     
 def send_message_to_esp32():
-    message = "De aquí a la luna"
-    message_bytes = message.encode('utf-8')  # Convert the message to bytes
-    rfm9x.send(message_bytes)
-    rfm9x.waitPacketSent()
-    print("Sent message to ESP32:", message)
-    print("")
-    time.sleep(15)  # Sleep for 15 seconds
+    while True:
+        message = "De aquí a la luna"
+        rfm9x.send(message.encode('utf-8'))
+        time.sleep(15)
+
 
 def receive_data():
     while True:
@@ -80,7 +78,6 @@ def receive_data():
             print("")
             
         time.sleep(5)
-        send_message_to_esp32()
            
             
        
@@ -90,5 +87,9 @@ if __name__ == '__main__':
     data_thread = threading.Thread(target=receive_data)
     data_thread.daemon = True
     data_thread.start()
+    
+    send_thread = threading.Thread(target=send_message_to_esp32)
+    send_thread.daemon = True
+    send_thread.start()
     # Ejecutar el servidor Flask en el hilo principal
     socketio.run(app, host='0.0.0.0', port=5000, debug=True)
