@@ -46,7 +46,16 @@ def handle_connect():
 
 @socketio.on('disconnect')
 def handle_disconnect():
-    print('Cliente desconectado') 
+    print('Cliente desconectado')
+    
+def send_message_to_esp32():
+    message = "De aquí a la luna"
+    message_bytes = message.encode('utf-8')  # Convert the message to bytes
+    rfm9x.send(message_bytes)
+    rfm9x.waitPacketSent()
+    print("Sent message to ESP32:", message)
+    print("")
+    time.sleep(15)  # Sleep for 15 seconds
 
 def receive_data():
     while True:
