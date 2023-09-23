@@ -53,8 +53,8 @@ def receive_data():
         packet = rfm9x.receive()
         if packet:
             temp_celsius = int.from_bytes(packet[2:4], byteorder='little') / 100.00
-            temp_fahrenheit = int.from_bytes(packet[4:6], byteorder='little') / 100.00
             temp_kelvin = int.from_bytes(packet[6:8], byteorder='little') / 100.00
+            temp_fahrenheit = int.from_bytes(packet[4:6], byteorder='little') / 100.00
             humd = int.from_bytes(packet[8:10], byteorder='little') / 100.00
 
             socketio.emit('temp_celsius', temp_celsius)
