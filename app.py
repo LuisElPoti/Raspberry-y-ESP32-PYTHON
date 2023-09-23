@@ -70,6 +70,8 @@ def receive_data():
             socketio.emit('temp_fahrenheit', temp_fahrenheit)
             socketio.emit('temp_kelvin', temp_kelvin)
             socketio.emit('humd', humd)
+            
+            
 
             print("Received temperature (Celsius):", temp_celsius, "C")
             print("Received temperature (Fahrenheit):", temp_fahrenheit, "F")
@@ -78,6 +80,7 @@ def receive_data():
             print("")
             
         time.sleep(5)
+        send_message_to_esp32()
            
             
        
