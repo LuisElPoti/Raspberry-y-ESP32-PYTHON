@@ -52,6 +52,7 @@ def send_message_to_esp32():
     while True:
         message = "De aquí a la luna"
         rfm9x.send(message.encode('utf-8'))
+        print("Sent message: ", message)
         time.sleep(15)
 
 
