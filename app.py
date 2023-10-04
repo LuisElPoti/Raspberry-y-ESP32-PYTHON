@@ -7,6 +7,9 @@ import socketio
 from flask import Flask, render_template
 from flask_socketio import SocketIO, emit 
 import threading
+import pygame
+from gtts import gTTS
+
 # import firebase_admin
 # from firebase_admin import credentials, db
 
@@ -57,27 +60,39 @@ def send_message_to_esp32():
 
 
 def receive_data():
+    pygame.init()
+
     while True:
         packet = rfm9x.receive()
         if packet:
-            temp_celsius = int.from_bytes(packet[2:4], byteorder='little') / 100.00
-            temp_fahrenheit = int.from_bytes(packet[4:6], byteorder='little') / 100.00
-            temp_kelvin = int.from_bytes(packet[6:8], byteorder='little') / 100.00
-            humd = int.from_bytes(packet[8:10], byteorder='little') / 100.00
+            temp_celsius = int.from_bytes(packet[2:4], byteorder='little') / 10.00
+            temp_fahrenheit = int.from_bytes(packet[4:6], byteorder='little') / 10.00
+            temp_kelvin = int.from_bytes(packet[6:8], byteorder='little') / 10.00
+            humd = int.from_bytes(packet[8:10], byteorder='little') / 10.00
 
+            # Emitir los valores a través de Socket.IO como lo estabas haciendo
             socketio.emit('temp_celsius', temp_celsius)
             socketio.emit('temp_fahrenheit', temp_fahrenheit)
             socketio.emit('temp_kelvin', temp_kelvin)
             socketio.emit('humd', humd)
-            
-            
+
+            # Crear y reproducir el mensaje de voz
+            message = f"La temperatura actual es de {temp_celsius} grados Celsius."
+            tts = gTTS(text=message, lang='es')
+            tts.save('temperature.mp3')
+
+            # Reproducir el archivo de sonido utilizando pygame.mixer
+            pygame.mixer.init()
+            pygame.mixer.music.load('temperature.mp3')
+            pygame.mixer.music.play()
+            while pygame.mixer.music.get_busy():
+                pygame.time.Clock().tick(10)
 
             print("Received temperature (Celsius):", temp_celsius, "C")
             print("Received temperature (Fahrenheit):", temp_fahrenheit, "F")
             print("Received temperature (Kelvin):", temp_kelvin, "K")
             print("Received humidity:", humd, "%")
-            print("")
-            
+
         time.sleep(5)
            
             
