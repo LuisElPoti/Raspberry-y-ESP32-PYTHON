@@ -108,4 +108,4 @@ if __name__ == '__main__':
     send_thread.daemon = True
     send_thread.start()
     # Ejecutar el servidor Flask en el hilo principal
-    socketio.run(app, host='0.0.0.0', port=5000, debug=True)
+    socketio.run(app, host='0.0.0.0', port=5000, debug=False)
