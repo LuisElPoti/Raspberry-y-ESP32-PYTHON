@@ -7,8 +7,8 @@ import socketio
 from flask import Flask, render_template
 from flask_socketio import SocketIO, emit 
 import threading
-#import pygame
-#from gtts import gTTS
+import pygame
+from gtts import gTTS
 
 # import firebase_admin
 # from firebase_admin import credentials, db
