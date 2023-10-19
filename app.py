@@ -76,17 +76,17 @@ def receive_data():
             socketio.emit('temp_kelvin', temp_kelvin)
             socketio.emit('humd', humd)
 
-            # # Crear y reproducir el mensaje de voz
-            # message = f"La temperatura actual es de {temp_celsius} grados Celsius."
-            # tts = gTTS(text=message, lang='es')
-            # tts.save('temperature.mp3')
+            # Crear y reproducir el mensaje de voz
+            message = f"La temperatura actual es de {temp_celsius} grados Celsius."
+            tts = gTTS(text=message, lang='es')
+            tts.save('temperature.mp3')
 
-            # # Reproducir el archivo de sonido utilizando pygame.mixer
-            # pygame.mixer.init()
-            # pygame.mixer.music.load('temperature.mp3')
-            # pygame.mixer.music.play()
-            # while pygame.mixer.music.get_busy():
-            #     pygame.time.Clock().tick(10)
+            # Reproducir el archivo de sonido utilizando pygame.mixer
+            pygame.mixer.init()
+            pygame.mixer.music.load('temperature.mp3')
+            pygame.mixer.music.play()
+            while pygame.mixer.music.get_busy():
+                pygame.time.Clock().tick(10)
 
             print("Received temperature (Celsius):", temp_celsius, "C")
             print("Received temperature (Fahrenheit):", temp_fahrenheit, "F")
