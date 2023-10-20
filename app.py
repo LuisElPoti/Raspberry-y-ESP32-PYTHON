@@ -79,6 +79,7 @@ def recognize_speech():
 
 
 
+
 def receive_data():
     pygame.init()
 
@@ -87,7 +88,6 @@ def receive_data():
         recognized_text = recognize_speech()
         rfm9x.send(recognized_text.encode('utf-8'))
         print("Enviado mensaje de voz: ", recognized_text)
-        time.sleep(15)
         
         packet = rfm9x.receive()
         if packet:
