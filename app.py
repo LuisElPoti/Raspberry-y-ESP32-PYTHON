@@ -78,16 +78,20 @@ def recognize_speech():
         return "No se pudo conectar con el servicio de reconocimiento de voz"
 
 
+def send_audio_to_esp32():
+    while True:
+        # Reconocer voz desde el micrófono
+        recognized_text = recognize_speech()
+        rfm9x.send(recognized_text.encode('utf-8'))
+        print("Enviado mensaje de voz: ", recognized_text)
+        time.sleep(15)
+
 
 
 def receive_data():
     pygame.init()
 
     while True:
-        
-        recognized_text = recognize_speech()
-        rfm9x.send(recognized_text.encode('utf-8'))
-        print("Enviado mensaje de voz: ", recognized_text)
         
         packet = rfm9x.receive()
         if packet:
@@ -133,5 +137,9 @@ if __name__ == '__main__':
     send_thread = threading.Thread(target=send_message_to_esp32)
     send_thread.daemon = True
     send_thread.start()
+    
+    send_audio_thread = threading.Thread(target=send_audio_to_esp32)
+    send_audio_thread.daemon = True
+    send_audio_thread.start()
     # Ejecutar el servidor Flask en el hilo principal
     socketio.run(app, host='0.0.0.0', port=5000, debug=False)
