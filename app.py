@@ -9,6 +9,8 @@ from flask_socketio import SocketIO, emit
 import threading
 import pygame
 from gtts import gTTS
+import speech_recognition as sr
+
 
 # import firebase_admin
 # from firebase_admin import credentials, db
@@ -57,12 +59,36 @@ def send_message_to_esp32():
         message = "De aquí a la luna"
         rfm9x.send(message.encode('utf-8'))
         print("Sent message: ", message)
+        
+# Nueva función para reconocer voz desde el micrófono
+def recognize_speech():
+    recognizer = sr.Recognizer()
+    microphone = sr.Microphone()
+
+    with microphone as source:
+        print("Escuchando...")
+        audio = recognizer.listen(source)
+
+    try:
+        recognized_text = recognizer.recognize_google(audio, language="es-ES")
+        return recognized_text
+    except sr.UnknownValueError:
+        return "No se pudo entender el audio"
+    except sr.RequestError:
+        return "No se pudo conectar con el servicio de reconocimiento de voz"
+
 
 
 def receive_data():
     pygame.init()
 
     while True:
+        
+        recognized_text = recognize_speech()
+        rfm9x.send(recognized_text.encode('utf-8'))
+        print("Enviado mensaje de voz: ", recognized_text)
+        time.sleep(15)
+        
         packet = rfm9x.receive()
         if packet:
             temp_celsius = int.from_bytes(packet[2:4], byteorder='little') / 100.00
