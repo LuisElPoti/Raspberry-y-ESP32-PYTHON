@@ -134,9 +134,9 @@ if __name__ == '__main__':
     data_thread.daemon = True
     data_thread.start()
     
-    send_thread = threading.Thread(target=send_message_to_esp32)
-    send_thread.daemon = True
-    send_thread.start()
+    # send_thread = threading.Thread(target=send_message_to_esp32)
+    # send_thread.daemon = True
+    # send_thread.start()
     
     send_audio_thread = threading.Thread(target=send_audio_to_esp32)
     send_audio_thread.daemon = True
