@@ -8,6 +8,7 @@ from flask import Flask, render_template
 from flask_socketio import SocketIO, emit 
 import threading
 import pygame
+import requests
 # from gtts import gTTS
 # import speech_recognition as sr
 
@@ -22,22 +23,40 @@ firebase_admin.initialize_app(cred, {
     'databaseURL': 'https://sensores-apolo-default-rtdb.firebaseio.com/'
 })
 
+firebase_api_key = 'AIzaSyBq2szFMd4NMYOtl5hrtr6M0DzPNG3lbs8'
+
 # ...
 
 # Autenticar un usuario con correo y contraseña
 email = "adames1601@gmail.com"
 password = "Apolo27@"
 
-try:
-    # Intentar iniciar sesión con correo y contraseña
-    user = auth.get_user_by_email(email)
-except Exception as e:
-    # Manejar cualquier excepción relacionada con la autenticación
-    print(f"Error de autenticación: {e}")
-    user = None
+url = f"https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key={firebase_api_key}"
+data = {
+    "email": email,
+    "password": password,
+    "returnSecureToken": True
+}
+response = requests.post(url, json=data)
+print(response)
+if response.status_code == 200:
+    json_response = response.json()
+    token = json_response['idToken']
+    print(f"Token: {token}")
+    verify = auth.verify_id_token(token)
+    print(f"Verify: {verify}")
+else:
+    raise Exception(f"Error: {response.status_code} - {response.text}")
+
+# try:
+#     # Intentar iniciar sesión con correo y contraseña
+#     user = auth.get_user_by_email(email)
+# except Exception as e:
+#     # Manejar cualquier excepción relacionada con la autenticación
+#     print(f"Error de autenticación: {e}")
+#     user = None
 
 # Crear un token personalizado
-custom_token = auth.create_custom_token(user.uid)
 
 
 # Referencia a la base de datos en tiempo real con autenticación
