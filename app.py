@@ -20,7 +20,7 @@ from firebase_admin import credentials, db, auth
 cred = credentials.Certificate("credentials.json")  # Reemplaza con la ubicación de tu archivo JSON
 firebase_admin.initialize_app(cred, {
     'databaseURL': 'https://sensores-apolo-default-rtdb.firebaseio.com/'
-}, name='sensores-apolo')
+})
 
 # ...
 
