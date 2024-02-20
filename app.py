@@ -31,12 +31,10 @@ password = "Apolo27@"
 try:
     # Intentar iniciar sesión con correo y contraseña
     user = auth.get_user_by_email(email)
-except auth.AuthError:
-    # Si el usuario no existe, crearlo
-    user = auth.create_user(
-        email=email,
-        password=password
-    )
+except Exception as e:
+    # Manejar cualquier excepción relacionada con la autenticación
+    print(f"Error de autenticación: {e}")
+    user = None
 
 # Crear un token personalizado
 custom_token = auth.create_custom_token(user.uid)
