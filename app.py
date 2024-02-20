@@ -16,6 +16,14 @@ import firebase_admin
 from firebase_admin import credentials, db, auth
 
 
+# Inicializar Firebase Admin SDK
+cred = credentials.Certificate("credentials.json")  # Reemplaza con la ubicación de tu archivo JSON
+firebase_admin.initialize_app(cred, {
+    'databaseURL': 'https://sensores-apolo-default-rtdb.firebaseio.com/'
+}, name='sensores-apolo')
+
+# ...
+
 # Autenticar un usuario con correo y contraseña
 email = "adames1601@gmail.com"
 password = "Apolo27@"
@@ -33,21 +41,10 @@ except auth.AuthError:
 # Crear un token personalizado
 custom_token = auth.create_custom_token(user.uid)
 
-# Inicializar Firebase Admin SDK con el token personalizado
-cred = credentials.Certificate("credentials.json")  # Reemplaza con la ubicación de tu archivo JSON
-firebase_admin.initialize_app(cred, {
-    'databaseURL': 'https://sensores-apolo-default-rtdb.firebaseio.com/'
-}, name='sensores-apolo', options={
-    'databaseAuthVariableOverride': {
-        'uid': user.uid,
-        'token': custom_token
-    }
-})
-
-# ...
 
 # Referencia a la base de datos en tiempo real con autenticación
 ref = db.reference('/temperatura-humedad', app=firebase_admin.get_app(name='sensores-apolo'))
+
 app = Flask(__name__)
 socketio = SocketIO(app)
 
