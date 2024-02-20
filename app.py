@@ -41,7 +41,7 @@ custom_token = auth.create_custom_token(user.uid)
 
 
 # Referencia a la base de datos en tiempo real con autenticación
-ref = db.reference('/temperatura-humedad', app=firebase_admin.get_app(name='Sensores-apolo'))
+ref = db.reference('/temperatura-humedad', app=firebase_admin.get_app(name='Sensores-Apolo'))
 
 app = Flask(__name__)
 socketio = SocketIO(app)
