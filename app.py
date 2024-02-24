@@ -129,12 +129,18 @@ def send_message_to_esp32():
 
 # Función para enviar datos a Firebase
 
-def send_to_firebase(temp_celsius, humd):
+def send_to_firebase(temp_celsius, humd, presionAt, AlturaMar, temp_celsius2, humd_rel2, presionAt2, AlturaMar2):
     try:
         # Enviar datos a Firebase
         data = {
-            'temperatura': temp_celsius,
-            'humedad': humd,
+            'temperatura1': temp_celsius,
+            'humedad1': humd,
+            'presionAt1': presionAt,
+            'AlturaMar1': AlturaMar,
+            'temperatura2': temp_celsius2,
+            'humedad2': humd_rel2,
+            'presionAt2': presionAt2,
+            'AlturaMar2': AlturaMar2,
             'timestamp': int(time.time() * 1000)  # Agregar un timestamp en milisegundos
         }
         ref.push(data)
@@ -152,16 +158,21 @@ def receive_data():
         
         packet = rfm9x.receive()
         if packet:
-            temp_celsius = int.from_bytes(packet[2:4], byteorder='little') / 100.00
-            temp_fahrenheit = int.from_bytes(packet[4:6], byteorder='little') / 100.00
-            temp_kelvin = int.from_bytes(packet[6:8], byteorder='little') / 100.00
-            humd = int.from_bytes(packet[8:10], byteorder='little') / 100.00
+            temp_celsius1 = int.from_bytes(packet[2:4], byteorder='little') / 100.00
+            humd_rel1 = int.from_bytes(packet[4:6], byteorder='little') / 100.00
+            presionAt1 = int.from_bytes(packet[6:8], byteorder='little') / 100.00
+            AlturaMar1 = int.from_bytes(packet[8:10], byteorder='little') / 100.00
+            temp_celsius2 = int.from_bytes(packet[10:12], byteorder='little') / 100.00
+            humd_rel2 = int.from_bytes(packet[12:14], byteorder='little') / 100.00
+            presionAt2 = int.from_bytes(packet[14:16], byteorder='little') / 100.00
+            AlturaMar2 = int.from_bytes(packet[16:18], byteorder='little') / 100.00
 
             # Emitir los valores a través de Socket.IO para que la página web los reciba
-            socketio.emit('temp_celsius', temp_celsius)
-            socketio.emit('temp_fahrenheit', temp_fahrenheit)
-            socketio.emit('temp_kelvin', temp_kelvin)
-            socketio.emit('humd', humd)
+            socketio.emit('temp_celsius', temp_celsius1)
+            socketio.emit('humd_rel', humd_rel1)
+            socketio.emit('presionAt', presionAt1)
+            socketio.emit('AlturaMar', AlturaMar1)
+            
             
             # FUNCIONALIDAD DEL AUDIO
 
@@ -177,14 +188,21 @@ def receive_data():
             # pygame.mixer.music.play()
             # while pygame.mixer.music.get_busy():
             #     pygame.time.Clock().tick(10)
-
-            print("Received temperature (Celsius):", temp_celsius, "C")
-            print("Received temperature (Fahrenheit):", temp_fahrenheit, "F")
-            print("Received temperature (Kelvin):", temp_kelvin, "K")
-            print("Received humidity:", humd, "%")
+            print("-------------------Piloto 1-------------------")
+            print("Received temperatura relativa:", temp_celsius1, "C")
+            print("Received humedad relativa:", humd_rel1, "F")
+            print("Received presion atmosférica:", presionAt1, "hPa")
+            print("Received Altura mar:", AlturaMar1, "m")
+            print("")
+            print("-------------------Piloto 2-------------------")
+            print("Received temperatura relativa:", temp_celsius2, "C")
+            print("Received humedad relativa:", humd_rel2, "F")
+            print("Received presion atmosférica:", presionAt2, "hPa")
+            print("Received Altura mar:", AlturaMar2, "m")
+            print("")
             
             # Enviar datos a Firebase
-            send_to_firebase(temp_celsius, humd)
+            send_to_firebase(temp_celsius1, humd_rel1, presionAt1, AlturaMar1, temp_celsius2, humd_rel2, presionAt2, AlturaMar2)
 
         time.sleep(5)
         
