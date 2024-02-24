@@ -157,6 +157,7 @@ def receive_data():
     while True:
         
         packet = rfm9x.receive()
+        print(packet)
         if packet:
             temp_celsius1 = int.from_bytes(packet[2:4], byteorder='little') / 100.00
             humd_rel1 = int.from_bytes(packet[4:6], byteorder='little') / 100.00
